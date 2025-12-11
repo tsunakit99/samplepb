@@ -21,17 +21,19 @@ enum CRUD
 // 商品カテゴリ更新用Param型
 message CategoryUpParam
 {
-    string id = 1;          // カテゴリID
-    string name = 2;        // カテゴリ名
+    CRUD crud = 1;    // 更新の種類
+    string id = 2;          // カテゴリID
+    string name = 3;        // カテゴリ名
 }
 
 // 商品更新用Param型
 message ProductUpParam
 {
-    string id = 1;          // 商品ID
-    string name = 2;        // 商品名
-    int32 price = 3;      // 商品価格
-    string category_id = 4; // カテゴリID
+    CRUD crud = 1;    // 更新の種類
+    string id = 2;          // 商品ID
+    string name = 3;        // 商品名
+    int32 price = 4;      // 商品価格
+    string category_id = 5; // カテゴリID
 }
 
 // 商品カテゴリ更新Result型
@@ -48,4 +50,26 @@ message ProductUpResult
     Product product = 1;                 // 商品
     Error error = 2;                  // エラー情報
     google.protobuf.Timestamp timestamp = 3; // タイムスタンプ
+}
+
+// 商品カテゴリ更新サービス型
+service CategoryCommand
+{
+    // 商品カテゴリ作成
+    rpc Create(CategoryUpParam) returns (CategoryUpResult);
+    // 商品カテゴリ更新
+    rpc Update(CategoryUpParam) returns (CategoryUpResult);
+    // 商品カテゴリ削除
+    rpc Delete(CategoryUpParam) returns (CategoryUpResult);
+}
+
+// 商品更新サービス型
+service ProductCommand
+{
+    // 商品作成
+    rpc Create(ProductUpParam) returns (ProductUpResult);
+    // 商品更新
+    rpc Update(ProductUpParam) returns (ProductUpResult);
+    // 商品削除
+    rpc Delete(ProductUpParam) returns (ProductUpResult);
 }
