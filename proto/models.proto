@@ -1,0 +1,21 @@
+syntax = "proto3";
+// 生成コードの格納先を指定
+option go_package = "/pb";
+// パッケージ名を指定
+package proto;
+
+// 商品カテゴリ型定義
+message Category 
+{
+    string id = 1;          // カテゴリID
+    string name = 2;        // カテゴリ名
+}
+
+// 商品型定義
+message Product 
+{
+    string id = 1;          // 商品ID
+    string name = 2;        // 商品名
+    int32 price = 3;      // 商品価格
+    optional Category category = 4; // 商品カテゴリ
+}
