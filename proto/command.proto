@@ -1,0 +1,51 @@
+syntax = "proto3";
+// 生成コードの格納先パッケージを指定
+option go_package = "/pb";
+
+import "proto/models.proto";
+import "proto/error.proto";
+import "google/protobuf/timestamp.proto";
+
+// パッケージの宣言
+package proto;
+
+// 更新の種類
+enum CRUD
+{
+    UNKNOWN = 0; // 不明
+    INSERT = 1;  // 挿入
+    UPDATE = 2;  // 更新
+    DELETE = 3;  // 削除
+}
+
+// 商品カテゴリ更新用Param型
+message CategoryUpParam
+{
+    string id = 1;          // カテゴリID
+    string name = 2;        // カテゴリ名
+}
+
+// 商品更新用Param型
+message ProductUpParam
+{
+    string id = 1;          // 商品ID
+    string name = 2;        // 商品名
+    int32 price = 3;      // 商品価格
+    string category_id = 4; // カテゴリID
+}
+
+// 商品カテゴリ更新Result型
+message CategoryUpResult
+{
+    Category category = 1;               // 商品カテゴリ
+    Error error = 2;                  // エラー情報
+    google.protobuf.Timestamp timestamp = 3; // タイムスタンプ
+}
+
+// 商品更新Result型
+message ProductUpResult
+{
+    Product product = 1;                 // 商品
+    Error error = 2;                  // エラー情報
+    google.protobuf.Timestamp timestamp = 3; // タイムスタンプ
+}
